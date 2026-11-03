@@ -33,6 +33,12 @@ Handle empty, malformed, older-version, unavailable, or full storage gracefully.
 
 In server-rendered code, initialize browser storage on the client and avoid replacing saved progress with defaults before hydration completes. Define consistent handling for multiple tabs if concurrent updates are supported. A learner-requested full reset should clearly describe its effect and remain separate from resetting an individual exercise.
 
+## CMS content revisions
+
+The approved Payload/PostgreSQL migration changes content storage, not ownership of learner progress. Keep existing topic, step, question, option/pair/item, exam, achievement, and reward identities stable; map CMS database IDs to those domain IDs. Preserve `bytebuddies.progress.v1` and its records unless an explicit, tested storage migration is necessary. A copy edit or reordered option must not reset mastery or grant repeat XP.
+
+Freeze question selection, content/answer revisions, and scoring rules for each active exam attempt so a CMS publish cannot change it midway. Add revision metadata compatibly to historical records; do not invent old revision history. Archive referenced content and define retirement behavior instead of erasing earned progress. Treat content loading/failure separately from an empty curriculum; never overwrite progress or unlock everything because CMS data has not arrived. Refactor unlock and achievement functions to consume an explicit content snapshot instead of importing static registries.
+
 ## Meaningful checks
 
 Test exact threshold boundaries; stable answer identity after shuffle; repeated submit/reward calls; retry after failure and after mastery; locked-route access; optional-topic independence; missing checkpoint/capstone certificate denial; reload persistence; and malformed/unavailable storage. Cover these behaviors with focused tests or reproducible checks using the actual project tooling.

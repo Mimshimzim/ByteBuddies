@@ -222,15 +222,26 @@ Build the actual website and its interactions. Choose a modern, maintainable sta
 - Responsive mobile-first styling with reliable desktop support.
 - Full RTL support through the document direction and component-level layout, while preserving LTR for commands, file paths, email addresses, and technical strings.
 - Persist progress, XP, completed assessments, attempts, and unlocked lessons with **localStorage or IndexedDB** in an MVP. Persist safely and recover gracefully if storage is unavailable.
-- If authentication/backend is introduced, make it optional, privacy-conscious, and appropriate for minors; the website must remain usable without providing personally identifying details.
+- The CMS backend and staff authentication are required for editing. Learner authentication remains optional, privacy-conscious, and appropriate for minors; the website must remain usable without providing personally identifying details.
 - Use semantic HTML, accessible labels, proper focus behavior, and screen-reader-friendly status messages.
 - Aim for strong performance: optimized assets, appropriate loading strategies, minimal cumulative layout shift, and comfortable interactions on low-end devices.
 - Ensure all navigation, buttons, lessons, labs, exam flows, score calculation, unlock rules, progress persistence, and completion certificates work end to end.
 - Ensure no broken routes, empty screens, placeholder lessons, untranslated interface text, or fake buttons.
 
+### Dynamic content management — approved architecture
+
+- Use **Payload CMS with PostgreSQL**, integrated into the existing Next.js app. Staff must be able to edit and publish course content through a protected admin interface; learner content updates must not require editing TypeScript or rebuilding/redeploying the application.
+- Model sessions, topics with ordered lesson steps and both age-band variants, questions, exams, glossary, media, and achievements as validated CMS data. Preserve the typed domain contracts used by the lesson and quiz renderers. Editors select registered diagrams/labs and supported achievement conditions; arbitrary executable code is not CMS content.
+- Provide drafts, authenticated preview, version history, and publish/unpublish/restore behavior, with appropriate editor/publisher permissions. Public read paths must expose published content only, including related records. Validate required teaching fields, correct answers, references, and progression before publication. Coordinate related records so publication cannot expose incomplete lessons/exams.
+- Import existing TypeScript content repeatably and without loss or duplicate records. Preserve all existing domain IDs independently of CMS database IDs and do not overwrite later editorial changes on reimport. Retain source fixtures until migration parity and rollback are demonstrated.
+- Replace static content imports with a server-side content access layer and validated runtime data for all affected screens, progression, and review logic. Support loading/error states and publication-triggered cache invalidation. Avoid database access in browser code and prevent private previews from entering public caches.
+- Preserve local learner progress, mastery, and earned rewards. Pin content/scoring revisions during an active exam; normal editorial updates must not reset mastery or repeat XP. Keep referenced content recoverable through versioning/archival.
+- Deploy the Next.js/Payload app and PostgreSQL through Podman Compose, using persistent database and media storage, checked-in production migrations, environment-based secrets, staff bootstrap, and verified backup/restore instructions. CMS administration does not require children to create accounts.
+- Deliver the first CMS milestone as one editable existing lesson: save a private draft, preview, publish, and observe the updated learner page without a container rebuild while existing progress remains intact. Wait for explicit user review approval before expanding migration scope.
+
 ### Podman and Compose deployment
 
-- **Containerize all application services and deploy through Podman Compose.** This includes the web app and any API, worker, or supporting service actually introduced. A single web container is sufficient for the browser-storage MVP; do not add a backend or database solely to use Compose.
+- **Containerize all application services and deploy through Podman Compose.** This includes the web app and any API, worker, or supporting service actually introduced. Include the required PostgreSQL service for the CMS and persistent media storage; add other services only for actual application needs.
 - Use `podman compose` with the explicitly selected `podman-compose` provider. Document tested versions and verify provider support for health, dependency, secrets, and build behavior. On macOS, use a running Podman machine; Docker Engine/Desktop is not required.
 - Supply production Containerfiles for application code, appropriate `.containerignore` files, and a root `compose.yaml`. Use trusted versioned images for supporting services. Keep development-only settings in an optional separate Compose override.
 - Use reproducible dependency installation from lockfiles, multi-stage builds where applicable, minimal runtime artifacts, and non-root application processes. Production must run built artifacts without source bind mounts or development servers.
@@ -311,6 +322,7 @@ The website is complete when all the following are true:
 - [ ] Progress, XP, mastery, badges, and unlocking work and persist after a refresh.
 - [ ] The computer, Windows, file-management, security, and networking interactive experiences are functional.
 - [ ] High-quality responsive design works on desktop, tablet, and mobile.
+- [ ] Staff can manage course content in Payload CMS backed by PostgreSQL, with protected drafts/preview, validated publishing without a rebuild, preserved learner progress, and verified content migration.
 - [ ] All application services run in Podman, deployment uses Podman Compose, and configuration, health checks, persistence, updates, and rollback are documented and verified.
 - [ ] Accessibility and age-appropriate safety/privacy are handled thoughtfully.
 - [ ] The site is free of mockup-only buttons, filler content, broken links, and untranslated UI labels.

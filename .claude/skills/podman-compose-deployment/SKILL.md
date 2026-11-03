@@ -9,7 +9,7 @@ Read `CLAUDE.md` and section 11 of `docs/product-requirements.md` from the proje
 
 ## Package the actual services
 
-- Containerize every application service, including any API or worker. Use maintained, versioned images for infrastructure that is actually needed. The local-progress MVP can be one web service; do not add a database merely to fill out Compose.
+- Containerize every application service, including any API or worker. Use maintained, versioned images for infrastructure that is actually needed. The approved CMS requires PostgreSQL alongside the Next.js/Payload app; browser learner progress remains local. Do not add unrelated services.
 - Create production Containerfiles, using multi-stage builds when compilation is needed. Install dependencies from the repository lockfile and keep only necessary runtime files. Use fully qualified registry/image names with trusted pinned versions or digests with a documented update approach; avoid floating `latest` images.
 - Run application processes as a non-root user, with correct writable-directory ownership and graceful shutdown. Serve on the container interface and declared port, rather than loopback only. Execute a production start command, not a development server.
 - Add `.containerignore` for each build context, excluding secrets, local dependencies, generated host output, and Git metadata while retaining required build inputs.
@@ -32,6 +32,14 @@ Configure service names, internal networks, required published ports, restart po
 Provide `.env.example` with safe example values. Distinguish Compose interpolation, container runtime environment, and build-time settings. Frontend public variables may be compiled into browser assets; never treat them as secrets or promise runtime configurability without implementing it. Keep credentials out of images, Podman build arguments, committed files, and logs. Use mounted secrets or suitable runtime injection; do not dump resolved secret values during validation.
 
 Persist server-side data using named volumes and document backups/restores. Keep browser localStorage/IndexedDB on the learner's device; it is scoped to the site's origin and is not a Podman volume. Service containers use Compose service names for internal calls; browser requests need a public endpoint or same-origin proxy. Avoid publishing internal database/cache ports without a concrete need.
+
+## Payload and PostgreSQL deployment
+
+For CMS implementation, follow `.claude/skills/payload-postgres-content/SKILL.md` from the project root. Extend the existing stack and scripts with a versioned PostgreSQL service, named data volume, readiness check, and internal database connectivity; do not publish the database port without need. Persist uploaded media separately and provide the app's non-root user access to that writable mount while retaining other read-only protections.
+
+Provide runtime database credentials and a stable Payload secret through appropriate configuration, with no production defaults in source. Pin compatible Payload packages. Include migration tooling in the deployment artifacts or a dedicated migration target, run checked-in migrations once in a controlled step after database readiness, and only start the updated app after success. Do not use development schema synchronization in production. Image builds must not require access to the live production database or mutate it.
+
+Document staff bootstrap, migration commands, intentional seed/import invocation, database and media backups, restore verification, and rollback compatibility. Do not reimport content on every startup or replace editor changes. Verify database/media survival after container recreation and preserve the learner origin so browser progress remains available.
 
 ## Deployment runbook
 

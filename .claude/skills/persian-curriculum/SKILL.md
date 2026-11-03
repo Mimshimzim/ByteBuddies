@@ -7,6 +7,12 @@ description: Author and revise Persian computer-fundamentals lessons, glossary e
 
 Read `docs/product-requirements.md` from the project root, especially sections 2, 4–8, 10, and 12–15. Paths in these instructions are relative to the project root. Use existing content schemas; introduce typed structured data if implementation requires a new schema.
 
+## CMS authoring and migration
+
+Payload CMS with PostgreSQL is the approved content destination. Follow `.claude/skills/payload-postgres-content/SKILL.md` from the project root for schema, import, and publishing work. Preserve existing TypeScript-authored material as migration input until parity is verified. After cutover, author content through CMS drafts/import tooling rather than creating new static runtime lesson modules. Map coverage to stable CMS content IDs and seed sources where relevant.
+
+Keep `base`, `young`, and `older` text and their fallback behavior, step ordering, answer keys, explanations, glossary references, and accessibility descriptions intact. Preview both age bands before publication. Select only registered diagrams and labs; the CMS must not accept executable lesson code. Invalid or draft dependencies must block publication rather than produce broken learner content.
+
 ## Coverage and content structure
 
 Keep the four sessions recognizable: computer introduction, files/storage, Windows security/system management, and networking. Map every numbered curriculum bullet to one or more fully authored topics in `docs/curriculum-coverage.md` when creating or revising the course. Include topic ID, source bullet, content location, practice/lab, assessment, and actual implementation status. Read the source bullets directly; a summary list cannot prove coverage.

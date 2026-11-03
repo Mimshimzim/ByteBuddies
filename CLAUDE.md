@@ -8,6 +8,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Next.js 16 / React 19 / Tailwind 4 app. Section 1 (foundation + Session 1) is built; sessions 2–4 and enrichment are not. Progress and approvals live in `docs/implementation-progress.md`. Commands: `npm run typecheck`, `npx vitest run`, `npm run build`; review deployment: `scripts/deploy-review.sh` (uses `~/.local/bin/podman-compose` via `PODMAN_COMPOSE_PROVIDER`; see `docs/deployment.md`).
 
+## Approved CMS direction
+
+The user selected Payload CMS with PostgreSQL for dynamic content management. Implement it in the existing Next.js app using `/payload-postgres-content`; preserve the current UI and authored course. The CMS is planned, not implemented. A request to update these instructions alone does not authorize beginning the migration.
+
+Use a protected editor/admin interface with drafts, preview, publication, and revision history. Published content must reach the learner app without a code edit or image rebuild. Preserve existing domain IDs and local learner progress; CMS database IDs are internal. Keep executable diagrams/labs in reviewed code and let editors select registered components and validated settings. Learner registration remains optional; staff authentication is separate.
+
+When implementation is requested, deliver the CMS milestones in `docs/implementation-progress.md` before extending the remaining sessions. First deploy one editable lesson end to end, then wait for user review approval. PostgreSQL selection does not approve the existing Section 1 delivery or later implementation milestones.
+
 ## Source of truth
 
 Read `docs/product-requirements.md` before planning or implementing the platform. Its numbered sections define the product; this file is a working guide, not a replacement. Follow the current user request for task scope. A request to configure agents or skills does not itself request building the website.
@@ -30,13 +38,15 @@ The product is a complete Persian computer-fundamentals learning experience for 
 
 Use `git@github.com:Mimshimzim/ByteBuddies.git` as the project's Git remote (`origin`). Preserve existing remote history; do not force-push. Keep local secrets, dependency folders, and build output out of commits.
 
+For requested commits, follow `/project-commit`: use a short, specific subject and `mimshimzim <mimshimzim@gmail.com>` for both author and committer. Keep identity settings local to this repository or the command.
+
 ## Implementation conventions
 
 Inspect the actual repository before selecting tools or giving commands. If no application exists and the user requests implementation, the prompt prefers Next.js, React, TypeScript, and Tailwind CSS; retain a suitable existing stack. Use the installed versions and package manager rather than assuming commands or APIs.
 
 Keep typed curriculum, questions, glossary, achievements, and prerequisites separate from UI. Use stable IDs, reusable lesson/quiz renderers, explicit simulation state, and a central progress model. Persist with localStorage or IndexedDB for the MVP, with schema validation and graceful recovery. Access browser storage safely in any server-rendered app.
 
-Containerize every application service and use Podman Compose for deployment. Deliver production Containerfiles, appropriate `.containerignore` files, a root `compose.yaml`, a documented configuration example, and `docs/deployment.md` when implementing the app. Include any backend, worker, or infrastructure dependency actually introduced; do not add unnecessary services to the browser-storage MVP. Production containers must run built application artifacts, not development servers or source bind mounts. Use `podman compose` with an explicitly selected `podman-compose` provider and verify its supported features; on macOS, use a running Podman machine. Follow `/podman-compose-deployment` and validate the deployed containers before claiming deployment readiness.
+Containerize every application service and use Podman Compose for deployment. Deliver production Containerfiles, appropriate `.containerignore` files, a root `compose.yaml`, a documented configuration example, and `docs/deployment.md` when implementing the app. Include PostgreSQL for the approved CMS and persistent media storage where uploads are used. Learner progress remains in browser storage; add other services only for demonstrated needs. Production containers must run built application artifacts, not development servers or source bind mounts. Use `podman compose` with an explicitly selected `podman-compose` provider and verify its supported features; on macOS, use a running Podman machine. Follow `/podman-compose-deployment` and validate the deployed containers before claiming deployment readiness.
 
 When implementing the full course, maintain `docs/curriculum-coverage.md` with each section 4 bullet mapped to topic IDs, content files, practice, and assessments. Record missing items honestly. Build complete authored coverage with quizzes across all four sessions before spending disproportionate effort polishing one session. Staged delivery does not change the final acceptance criteria.
 
@@ -57,11 +67,13 @@ Follow the user's requested review cadence: finish a meaningful section, deploy 
 ## Claude resources
 
 - Agent: `.claude/agents/persian-learning-builder.md` for implementing a scoped product feature or the full course when requested.
+- `/payload-postgres-content`: Payload CMS with PostgreSQL, content import, runtime delivery, and draft/publish workflows.
 - `/persian-curriculum`: lesson authoring, question content, glossary, curriculum coverage.
 - `/persian-rtl-ui`: Persian layout, typography, responsive design, accessible UI.
 - `/safe-learning-labs`: simulated Windows, hardware, file, security, networking, and algorithm activities.
 - `/mastery-progress`: assessment engine, retries, XP, unlocking, persistence, certificates.
 - `/podman-compose-deployment`: Podman packaging for all application services and deployment through Podman Compose.
+- `/project-commit`: short commit messages and the required commit identity.
 - `/learning-platform-review`: evidence-based review against the source prompt.
 
 Use the skills that match the task. Usage examples are in `.claude/README.md`.

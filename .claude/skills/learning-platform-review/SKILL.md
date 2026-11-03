@@ -36,6 +36,12 @@ Use `.claude/skills/podman-compose-deployment/SKILL.md` from the project root to
 
 Verify the active Podman connection/machine and selected `podman-compose` provider, including support for the Compose features used. Validate Compose configuration, build the images, and exercise the stack and key learner flows through its published endpoint when Podman is available. Verify restart/recreation without losing required data; browser progress should survive when revisiting the same origin. A host-side development server does not demonstrate container deployment readiness. Report unavailable runtime checks explicitly.
 
+## Dynamic content management
+
+Use `.claude/skills/payload-postgres-content/SKILL.md` for the approved Payload/PostgreSQL migration. Verify staff login and editor/publisher authorization across admin and APIs; anonymous visitors may read published content only. Check draft previews cannot leak into public responses or shared caches. Demonstrate an admin edit and publish appearing in the learner player without a rebuild; demonstrate unpublishing/rollback invalidates stale published views as designed.
+
+Compare imported records with the existing exported TypeScript objects, including nested step/question/answer IDs and keys. Rerun imports to confirm no duplicates and no overwritten editor changes. Test missing references and invalid answer keys are rejected on publication, public readers cannot fetch drafts through related records, and all migrated views consume runtime content. Check pre-migration local progress and XP survive, active exams retain their revision, and CMS failures do not reset progress or silently serve stale hard-coded lessons. Verify database/media persistence and the documented backup/restore procedure in an isolated environment. Report incomplete migration consumers explicitly.
+
 ## Section acceptance handoff
 
 For a section completion review, assess the current section against its stated acceptance criteria and retain remaining course requirements as pending. Confirm the deployed service is accessible, give the real review URL, and provide a short checklist of actions and expected results for the user to test. Include checks already run and known limitations. Ask for functional feedback and explicit approval to proceed, then stop at the boundary specified in `CLAUDE.md`. Automated checks and this review do not substitute for user acceptance. Requested fixes stay in the current section and require a refreshed deployment and review before continuation.

@@ -12,6 +12,18 @@ Resume from this file after any interruption. **Approval is never inferred.**
 | 4 | Session 4 (مبانی شبکه و اینترنت) | 10 topics + exams + checkpoint; labs: network builder, command-line simulator | Not started |
 | 5 | Enrichment, capstone, certificate, parent/teacher area | digital literacy, computational thinking, algorithm lab, capstone, certificate, roadmap, full QA | Not started |
 
+## Requested CMS migration (2026-11-03)
+
+The user approved PostgreSQL for the proposed Payload CMS architecture and requested agent/skill updates so Claude can implement it. This records an architecture decision and instruction update, not completed implementation or acceptance of Section 1. Keep the existing Section 1 approval pending. When CMS implementation is requested, prioritize the following milestones before extending Session 2; each requires deployed user review before the next begins.
+
+| ID | Milestone | Acceptance (observable) | Status |
+|---|---|---|---|
+| CMS-1 | Editable lesson with Payload + PostgreSQL | Staff login, import one existing topic preserving IDs, edit a private draft, authenticated preview, publish to the real learner route without rebuilding, retain existing progress; Podman app/database deployment and review URLs | Planned; not started |
+| CMS-2 | Full existing content migration | Sessions/topics/questions/exams/glossary/media/achievements managed in CMS; safe repeatable import; all existing static consumers migrated; scoring, unlocking, active attempts, and progress preserved | Planned; awaits CMS-1 approval |
+| CMS-3 | Editorial and operational completion | Publish dependency checks, revisions/archival and restore behavior, staff permissions, cache invalidation, database/media backup and restore, production migration/rollback checks | Planned; awaits CMS-2 approval |
+
+Baseline access control, draft isolation, valid publishing, and persistent storage are required from CMS-1; later milestones extend coverage rather than defer those fundamentals. Explicit CMS milestone approvals: none. This documentation update has not changed the running review deployment.
+
 ## Toolchain (verified 2026-11-03)
 - Podman 6.0.2, machine `podman-machine-default` (libkrun) running
 - `podman-compose` 1.6.0 at `~/.local/bin/podman-compose` (installed via `uv tool`); `podman compose` defaults to docker-compose here, so always set `PODMAN_COMPOSE_PROVIDER`
