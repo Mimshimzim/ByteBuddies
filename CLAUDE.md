@@ -6,7 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Current state
 
-The repo holds only configuration and docs: `docs/product-requirements.md` (the spec), `.claude/` (one agent, six skills, `README.md` with usage examples), and this file. No application, `package.json`, tests, or Podman files exist yet, so there are no build, lint, or test commands. Once an app is scaffolded, record its real commands in project docs and here.
+Next.js 16 / React 19 / Tailwind 4 app. Section 1 (foundation + Session 1) is built; sessions 2–4 and enrichment are not. Progress and approvals live in `docs/implementation-progress.md`. Commands: `npm run typecheck`, `npx vitest run`, `npm run build`; review deployment: `scripts/deploy-review.sh` (uses `~/.local/bin/podman-compose` via `PODMAN_COMPOSE_PROVIDER`; see `docs/deployment.md`).
+
 ## Source of truth
 
 Read `docs/product-requirements.md` before planning or implementing the platform. Its numbered sections define the product; this file is a working guide, not a replacement. Follow the current user request for task scope. A request to configure agents or skills does not itself request building the website.
