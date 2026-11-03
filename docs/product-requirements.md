@@ -228,15 +228,16 @@ Build the actual website and its interactions. Choose a modern, maintainable sta
 - Ensure all navigation, buttons, lessons, labs, exam flows, score calculation, unlock rules, progress persistence, and completion certificates work end to end.
 - Ensure no broken routes, empty screens, placeholder lessons, untranslated interface text, or fake buttons.
 
-### Docker and Docker Compose deployment
+### Podman and Compose deployment
 
-- **Containerize all application services and deploy through Docker Compose.** This includes the web app and any API, worker, or supporting service actually introduced. A single web container is sufficient for the browser-storage MVP; do not add a backend or database solely to use Compose.
-- Supply production Dockerfiles for application code, appropriate `.dockerignore` files, and a root `compose.yaml`. Use trusted versioned images for supporting services. Keep development-only settings in an optional separate Compose override.
+- **Containerize all application services and deploy through Podman Compose.** This includes the web app and any API, worker, or supporting service actually introduced. A single web container is sufficient for the browser-storage MVP; do not add a backend or database solely to use Compose.
+- Use `podman compose` with the explicitly selected `podman-compose` provider. Document tested versions and verify provider support for health, dependency, secrets, and build behavior. On macOS, use a running Podman machine; Docker Engine/Desktop is not required.
+- Supply production Containerfiles for application code, appropriate `.containerignore` files, and a root `compose.yaml`. Use trusted versioned images for supporting services. Keep development-only settings in an optional separate Compose override.
 - Use reproducible dependency installation from lockfiles, multi-stage builds where applicable, minimal runtime artifacts, and non-root application processes. Production must run built artifacts without source bind mounts or development servers.
 - Document build-time versus runtime configuration and provide an `.env.example` without credentials. Keep secrets out of committed files, image layers, build arguments, and browser bundles; inject them through appropriate deployment configuration or secret mounts.
 - Configure health checks, readiness-aware dependencies where needed, restart behavior, internal service networking, and only necessary published ports. Preserve any server-side data in named volumes with backup/restore guidance. Browser localStorage/IndexedDB remains on the learner's device.
 - Supply `docs/deployment.md` with prerequisites, configuration, exact Compose build/start commands, health verification, logs, updates, rollback, and non-destructive shutdown instructions. Document ingress/TLS for the chosen deployment target when one is provided.
-- Validate the resolved Compose configuration, build all application images, start the full stack, and smoke-test learner flows against the containerized app. Check restart/recreation and persistence. Report unavailable Docker execution as unverified, not a successful deployment.
+- Validate the resolved Compose configuration, build all application images, start the full stack, and smoke-test learner flows against the containerized app. Check restart/recreation and persistence. Report unavailable Podman execution as unverified, not a successful deployment.
 
 ### Quality assurance
 
@@ -250,7 +251,7 @@ Include automated or easily reproducible checks for:
 - Interactive lab success and failure states.
 - Mobile and desktop layouts.
 - Keyboard navigation, reduced-motion preference, and adequate contrast.
-- Docker image builds, Compose configuration and health, containerized learner flows, and persistence across container recreation where applicable.
+- Podman image builds, Compose configuration and health, containerized learner flows, and persistence across container recreation where applicable.
 
 ## 12. Sample Persian Voice and Educational Style
 
@@ -292,7 +293,7 @@ If implementation constraints force staged development, first establish a comple
 
 Implement the product in meaningful, reviewable sections with observable acceptance criteria. Announce the section plan and begin the first section within the requested scope. Complete routine changes and fixes inside a section without asking for approval after every small change.
 
-After each section, deploy the current app using Docker Compose, verify the service, and provide the actual review URL plus a short functionality checklist with expected outcomes. Keep the review service available and ask the user to test it and explicitly approve moving forward. Do not start the next section until that approval arrives; passing automated checks or receiving no response is not approval. If the user requests changes, fix the current section, retest, redeploy, and request review again.
+After each section, deploy the current app using Podman Compose, verify the service, and provide the actual review URL plus a short functionality checklist with expected outcomes. Keep the review service available and ask the user to test it and explicitly approve moving forward. Do not start the next section until that approval arrives; passing automated checks or receiving no response is not approval. If the user requests changes, fix the current section, retest, redeploy, and request review again.
 
 Track the current section, deployed revision/URL, feedback, and explicit approvals in `docs/implementation-progress.md` during implementation. If deployment or user access is blocked, explain the blocker and resolve it before treating the section as ready. This delivery cadence preserves the full curriculum and final acceptance criteria; approval of an early section is not completion of the whole product.
 
@@ -310,7 +311,7 @@ The website is complete when all the following are true:
 - [ ] Progress, XP, mastery, badges, and unlocking work and persist after a refresh.
 - [ ] The computer, Windows, file-management, security, and networking interactive experiences are functional.
 - [ ] High-quality responsive design works on desktop, tablet, and mobile.
-- [ ] All application services run in Docker, deployment uses Docker Compose, and configuration, health checks, persistence, updates, and rollback are documented and verified.
+- [ ] All application services run in Podman, deployment uses Podman Compose, and configuration, health checks, persistence, updates, and rollback are documented and verified.
 - [ ] Accessibility and age-appropriate safety/privacy are handled thoughtfully.
 - [ ] The site is free of mockup-only buttons, filler content, broken links, and untranslated UI labels.
 - [ ] Students who finish the course understand core computer concepts and are ready to start a beginner programming track.

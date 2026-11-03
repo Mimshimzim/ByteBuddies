@@ -32,9 +32,9 @@ Check that nickname/avatar onboarding suffices, personal data is minimized, no p
 
 ## Container deployment
 
-Use `.claude/skills/docker-compose-deployment/SKILL.md` from the project root to review deployment. Confirm every actual application service is containerized and included in the root Compose stack. Verify production builds, configuration/secrets handling, health and readiness, internal networking, and persistence for any server-side data. Check the deployment runbook against the commands and files that actually exist.
+Use `.claude/skills/podman-compose-deployment/SKILL.md` from the project root to review deployment. Confirm every actual application service is containerized and included in the root Compose stack. Verify production builds, configuration/secrets handling, health and readiness, internal networking, and persistence for any server-side data. Check the deployment runbook against the commands and files that actually exist.
 
-Validate Compose configuration, build the images, and exercise the stack and key learner flows through its published endpoint when Docker is available. Verify restart/recreation without losing required data; browser progress should survive when revisiting the same origin. A host-side development server does not demonstrate container deployment readiness. Report unavailable runtime checks explicitly.
+Verify the active Podman connection/machine and selected `podman-compose` provider, including support for the Compose features used. Validate Compose configuration, build the images, and exercise the stack and key learner flows through its published endpoint when Podman is available. Verify restart/recreation without losing required data; browser progress should survive when revisiting the same origin. A host-side development server does not demonstrate container deployment readiness. Report unavailable runtime checks explicitly.
 
 ## Section acceptance handoff
 
