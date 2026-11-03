@@ -5,7 +5,7 @@ description: Implement assessment scoring, retries, concept review, mastery unlo
 
 # Assessments and saved mastery
 
-Read root `persian_kids_computer_learning_website_prompt.md`, sections 6–8 and 11–15. Inspect the curriculum IDs, prerequisites, current storage schema, and quiz implementation before editing.
+Read `docs/product-requirements.md` from the project root, sections 6–8 and 11–15. Inspect the curriculum IDs, prerequisites, current storage schema, and quiz implementation before editing.
 
 ## Assessment engine
 

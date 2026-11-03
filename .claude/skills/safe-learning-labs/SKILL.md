@@ -5,7 +5,7 @@ description: Implement or repair interactive computer, Windows, file, security, 
 
 # Safe interactive learning labs
 
-Read root `persian_kids_computer_learning_website_prompt.md`, particularly the relevant session in section 4 and sections 9–11. Inspect shared lab components and progress integration before implementing.
+Read `docs/product-requirements.md` from the project root, particularly the relevant session in section 4 and sections 9–11. Inspect shared lab components and progress integration before implementing.
 
 ## Simulation contract
 

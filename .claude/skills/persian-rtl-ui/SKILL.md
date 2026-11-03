@@ -5,7 +5,7 @@ description: Build or refine Persian RTL screens, teaching visuals, responsive l
 
 # Persian RTL learning UI
 
-Read root `persian_kids_computer_learning_website_prompt.md`, sections 1–3, 6–7, 11–13. Inspect existing components and design tokens before introducing a visual system.
+Read `docs/product-requirements.md` from the project root, sections 1–3, 6–7, 11–13. Inspect existing components and design tokens before introducing a visual system.
 
 ## Language and direction
 

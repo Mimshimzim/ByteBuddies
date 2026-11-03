@@ -5,7 +5,7 @@ description: Review implemented Computer Kids features or the complete site agai
 
 # Learning platform review
 
-Read root `persian_kids_computer_learning_website_prompt.md`, especially sections 4, 6, 8–11, and 15. Inspect the actual implementation and available run/test scripts. A coverage document is an index to evidence, not proof that content or behavior exists.
+Read `docs/product-requirements.md` from the project root, especially sections 4, 6, 8–11, and 15. Inspect the actual implementation and available run/test scripts. A coverage document is an index to evidence, not proof that content or behavior exists.
 
 Use the requested scope. For a focused feature review, check affected behavior and integrations. For a whole-platform review, trace every acceptance criterion. A review request is primarily diagnostic; fix code when the user also requests fixes.
 
@@ -29,6 +29,12 @@ Check XP/badge idempotency, best-attempt retention, optional-topic independence,
 Inspect phone, tablet, and desktop layouts with long Persian text and mixed LTR tokens. Use representative widths of 360, 768, and 1440 CSS pixels, intermediate sizes, and tablet landscape; record the viewports actually checked. Cover navigation, lessons, exams, labs, and dialogs with no clipped controls or page-level horizontal overflow. Check touch and keyboard interaction, focus, labels, status announcements, contrast, reduced motion, empty/loading/error states, and certificate output. Confirm that diagrams teach the concept and remain understandable without animation.
 
 Check that nickname/avatar onboarding suffices, personal data is minimized, no public ranking or social feed is introduced, and errors/retries remain supportive. Examine requests and links relevant to the feature for unnecessary tracking or unsafe destinations.
+
+## Container deployment
+
+Use `.claude/skills/docker-compose-deployment/SKILL.md` from the project root to review deployment. Confirm every actual application service is containerized and included in the root Compose stack. Verify production builds, configuration/secrets handling, health and readiness, internal networking, and persistence for any server-side data. Check the deployment runbook against the commands and files that actually exist.
+
+Validate Compose configuration, build the images, and exercise the stack and key learner flows through its published endpoint when Docker is available. Verify restart/recreation without losing required data; browser progress should survive when revisiting the same origin. A host-side development server does not demonstrate container deployment readiness. Report unavailable runtime checks explicitly.
 
 ## Report evidence
 

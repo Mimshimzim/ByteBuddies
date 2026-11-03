@@ -5,7 +5,7 @@ description: Author and revise Persian computer-fundamentals lessons, glossary e
 
 # Persian curriculum authoring
 
-Read root `persian_kids_computer_learning_website_prompt.md`, especially sections 2, 4–8, 10, and 12–15. Paths in these instructions are relative to the project root. Use existing content schemas; introduce typed structured data if implementation requires a new schema.
+Read `docs/product-requirements.md` from the project root, especially sections 2, 4–8, 10, and 12–15. Paths in these instructions are relative to the project root. Use existing content schemas; introduce typed structured data if implementation requires a new schema.
 
 ## Coverage and content structure
 

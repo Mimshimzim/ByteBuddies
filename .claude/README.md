@@ -1,6 +1,6 @@
 # Claude Code setup
 
-This directory configures Claude Code for the project described in [`persian_kids_computer_learning_website_prompt.md`](../persian_kids_computer_learning_website_prompt.md). It contains instructions and skills; the website has not been implemented by this setup.
+This directory configures Claude Code for the project described in [`docs/product-requirements.md`](../docs/product-requirements.md). It contains instructions and skills; the website has not been implemented by this setup.
 
 ## Start
 
@@ -9,7 +9,7 @@ Open a terminal in the project root and run `claude` if Claude Code is installed
 Use `/agents` to inspect `persian-learning-builder`. To request implementation, send:
 
 ```text
-Use the persian-learning-builder agent to implement the website described in persian_kids_computer_learning_website_prompt.md. Preserve all four sessions and track curriculum coverage.
+Use the persian-learning-builder agent to implement the website described in docs/product-requirements.md. Preserve all four sessions and track curriculum coverage.
 ```
 
 For a smaller assignment:
@@ -28,9 +28,12 @@ Claude can select these skills when relevant. You can also invoke them directly:
 | `/persian-rtl-ui Review and fix mixed-direction text in the lesson player` | Persian RTL design and accessibility |
 | `/safe-learning-labs Implement the network builder` | Safe functional simulations |
 | `/mastery-progress Add checkpoint unlocking and saved exam attempts` | Scoring, mastery, rewards, and persistence |
+| `/docker-compose-deployment Containerize all app services and prepare Compose deployment` | Production images, service configuration, deployment runbook, and runtime checks |
 | `/learning-platform-review Audit the current implementation against the master prompt` | Evidence-based product review |
 
-Skills are in `skills/<name>/SKILL.md`; the agent is in `agents/persian-learning-builder.md`. The agent preloads the four implementation skills and reads the review skill for validation. Its model follows the active Claude session. This setup does not add permission overrides, hooks, API keys, or external service dependencies.
+Skills are in `skills/<name>/SKILL.md`; the agent is in `agents/persian-learning-builder.md`. The agent preloads the five implementation skills and reads the review skill for validation. Its model follows the active Claude session. This setup does not add permission overrides, hooks, API keys, or external service dependencies.
+
+All application services must be containerized and deployed using Docker Compose. During implementation, the agent must provide the production Dockerfiles, root `compose.yaml`, configuration example, and `docs/deployment.md`, then validate the running stack. These instructions do not themselves create a runnable app or deploy it.
 
 The master prompt remains the authoritative product specification. Update the corresponding guidance if product requirements change. Record actual app run/test commands in project documentation when an application exists; no app commands are assumed here.
 
