@@ -45,7 +45,7 @@ export function scoreExam(exam: Exam, questions: Question[], answers: Record<str
   const attempt: AttemptRecord = {
     at: new Date().toISOString(),
     scorePercent,
-    passed: scorePercent >= exam.passPercent,
+    passed: questions.length > 0 && (correctCount / questions.length) * 100 >= exam.passPercent,
     missedConcepts: [...new Set(results.filter((r) => !r.correct).map((r) => r.q.concept))],
   };
   return { results, correctCount, scorePercent, attempt };

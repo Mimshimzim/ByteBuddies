@@ -1,0 +1,29 @@
+name: bytebuddies-review
+services:
+  web:
+    image: localhost/bytebuddies-web:${BYTEBUDDIES_IMAGE_TAG:-dev}
+    build:
+      context: .
+      dockerfile: Containerfile
+    container_name: bytebuddies-web
+    restart: unless-stopped
+    ports:
+      - "${BYTEBUDDIES_HOST_PORT:-8080}:3000"
+    environment:
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      PORT: "3000"
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /app/.next/cache
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:3000/"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

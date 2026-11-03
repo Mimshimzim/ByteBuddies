@@ -30,6 +30,8 @@ export function sanitize(raw: unknown): ProgressState {
     xpAwarded: Array.isArray(r.xpAwarded) ? r.xpAwarded.filter((x: unknown) => typeof x === "string") : [],
     achievements: isObj(r.achievements) ? r.achievements : {},
     weakConcepts: isObj(r.weakConcepts) ? r.weakConcepts : {},
+    ...(typeof r.lastVisit === "string" ? { lastVisit: r.lastVisit } : {}),
+    ...(Number.isFinite(r.streakDays) ? { streakDays: r.streakDays } : {}),
   };
 }
 
