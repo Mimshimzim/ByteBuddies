@@ -36,6 +36,10 @@ Use `.claude/skills/docker-compose-deployment/SKILL.md` from the project root to
 
 Validate Compose configuration, build the images, and exercise the stack and key learner flows through its published endpoint when Docker is available. Verify restart/recreation without losing required data; browser progress should survive when revisiting the same origin. A host-side development server does not demonstrate container deployment readiness. Report unavailable runtime checks explicitly.
 
+## Section acceptance handoff
+
+For a section completion review, assess the current section against its stated acceptance criteria and retain remaining course requirements as pending. Confirm the deployed service is accessible, give the real review URL, and provide a short checklist of actions and expected results for the user to test. Include checks already run and known limitations. Ask for functional feedback and explicit approval to proceed, then stop at the boundary specified in `CLAUDE.md`. Automated checks and this review do not substitute for user acceptance. Requested fixes stay in the current section and require a refreshed deployment and review before continuation.
+
 ## Report evidence
 
 Run the available relevant lint, type, build, and behavioral checks; report exact commands and outcomes. If there is no application yet, say that product checks are not runnable and identify the missing implementation instead of reporting a pass.

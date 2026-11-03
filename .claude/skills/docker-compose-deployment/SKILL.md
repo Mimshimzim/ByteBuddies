@@ -31,12 +31,18 @@ Create or update `docs/deployment.md` with the exact files and commands the impl
 
 Use immutable release identifiers when publishing images so rollback selects a known version. If migrations exist, document compatibility and backup requirements separately from image rollback. Do not recommend volume deletion or system pruning as routine deployment steps. Preparing deployment files does not itself require publishing images or changing a remote host; follow the user's requested deployment scope.
 
+## Section review deployments
+
+For an implementation section, deployment is part of completing the work before asking the user for feedback. Follow the approval boundary in `CLAUDE.md`. Deploy to the established review environment; when none is specified, use local Compose and give an accurate access URL. Do not invent a public URL or publish to an unspecified remote host. Missing Docker access, credentials, or a reachable endpoint is a blocker to resolve, not evidence of successful deployment.
+
+After verification, keep the review stack running, identify the deployed revision, and provide a short checklist of functionality the user can exercise with expected outcomes. Ask the user to test and explicitly approve continuation. Wait before implementing or deploying the next section. Fix feedback, retest, and redeploy the current section before seeking approval again. Record the URL, revision, feedback, and actual approval in `docs/implementation-progress.md` during implementation.
+
 ## Verification
 
 1. Verify Docker and Compose availability. Validate the intended file combination using `docker compose ... config --quiet` with safe test configuration.
 2. Build every app image and start the whole stack with bounded readiness waits. Use an isolated Compose project/ports for local tests when another stack is running.
 3. Inspect service health and logs, then test the actual container endpoint: static assets, Persian RTL routes, onboarding, lesson, assessment, and saved progress. Check mobile, tablet, and desktop layouts through that endpoint when browser tools are available.
-4. Verify dependency behavior, graceful restart/recreation, and server data survival where applicable; confirm browser progress at the same origin. Clean up only the test resources created for this run, retaining data unless explicitly disposable.
+4. Verify dependency behavior, graceful restart/recreation, and server data survival where applicable; confirm browser progress at the same origin. Clean up only disposable test resources created for this run, retaining data unless explicitly disposable. Keep the user-review stack running until review is finished or the user requests shutdown.
 5. Record commands, outcomes, and limitations. A valid YAML file or successful image build alone is not a verified deployment. If app code or Docker is unavailable, state which checks remain unverified.
 
 Consult the official references when implementing version-dependent behavior: [Compose production deployment](https://docs.docker.com/compose/how-tos/production/), [Docker build practices](https://docs.docker.com/build/building/best-practices/), and [dependency readiness](https://docs.docker.com/compose/how-tos/startup-order/).

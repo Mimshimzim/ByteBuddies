@@ -288,6 +288,14 @@ These are tone examples only. **Create original, varied Persian explanations and
 
 If implementation constraints force staged development, first establish a complete, navigable, content-rich course with working quizzes for **every topic**. Then enrich the highest-value topics with more sophisticated simulations and visuals. Do not silently reduce the curriculum to the first session or replace entire lessons with placeholder cards.
 
+### Section-by-section delivery and acceptance
+
+Implement the product in meaningful, reviewable sections with observable acceptance criteria. Announce the section plan and begin the first section within the requested scope. Complete routine changes and fixes inside a section without asking for approval after every small change.
+
+After each section, deploy the current app using Docker Compose, verify the service, and provide the actual review URL plus a short functionality checklist with expected outcomes. Keep the review service available and ask the user to test it and explicitly approve moving forward. Do not start the next section until that approval arrives; passing automated checks or receiving no response is not approval. If the user requests changes, fix the current section, retest, redeploy, and request review again.
+
+Track the current section, deployed revision/URL, feedback, and explicit approvals in `docs/implementation-progress.md` during implementation. If deployment or user access is blocked, explain the blocker and resolve it before treating the section as ready. This delivery cadence preserves the full curriculum and final acceptance criteria; approval of an early section is not completion of the whole product.
+
 ## 15. Definition of Done / Acceptance Criteria
 
 The website is complete when all the following are true:

@@ -18,6 +18,12 @@ For a smaller assignment:
 Use the persian-learning-builder agent to implement the virtual file manager with Persian instructions, keyboard controls, and simulated files.
 ```
 
+## Section reviews
+
+Implementation proceeds one meaningful section at a time. Claude completes routine changes, deploys the section using Docker Compose, verifies it, and gives you a review URL and a short functionality checklist. The service stays running for your review. Claude then waits for your explicit approval before starting the next section. Requested fixes are applied and redeployed within the same section for another review; individual small edits do not require repeated approval.
+
+During implementation, `docs/implementation-progress.md` records section status, deployed revisions, feedback, and approvals so the workflow survives interrupted sessions. The complete policy is in root `CLAUDE.md`.
+
 ## Project skills
 
 Claude can select these skills when relevant. You can also invoke them directly:

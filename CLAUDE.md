@@ -1,5 +1,12 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # Computer Kids — project instructions
 
+## Current state
+
+The repo holds only configuration and docs: `docs/product-requirements.md` (the spec), `.claude/` (one agent, six skills, `README.md` with usage examples), and this file. No application, `package.json`, tests, or Docker files exist yet, so there are no build, lint, or test commands. Once an app is scaffolded, record its real commands in project docs and here.
 ## Source of truth
 
 Read `docs/product-requirements.md` before planning or implementing the platform. Its numbered sections define the product; this file is a working guide, not a replacement. Follow the current user request for task scope. A request to configure agents or skills does not itself request building the website.
@@ -33,6 +40,18 @@ Containerize every application service and use Docker Compose for deployment. De
 When implementing the full course, maintain `docs/curriculum-coverage.md` with each section 4 bullet mapped to topic IDs, content files, practice, and assessments. Record missing items honestly. Build complete authored coverage with quizzes across all four sessions before spending disproportionate effort polishing one session. Staged delivery does not change the final acceptance criteria.
 
 Run the checks supported by the actual project. Prioritize scoring, unlock conditions, repeated rewards, storage recovery, lab state transitions, RTL, and accessible learner flows. Report what ran, what passed, and anything unverified. Do not claim completion from a successful build alone.
+
+## Section delivery and user approval
+
+Follow the user's requested review cadence: finish a meaningful section, deploy it, ask for functional feedback, and wait for explicit approval before starting the next section.
+
+- At implementation start, outline substantial, independently reviewable sections with observable acceptance criteria. A section is a coherent user-facing feature or learning journey, not an individual file, component, or small change. Begin the first section within the requested scope without adding a separate planning approval gate.
+- Complete implementation, routine decisions, checks, and small fixes within the current section autonomously. Do not ask for approval after each edit or test. Include the infrastructure needed to deploy the first reviewable section.
+- Before requesting feedback, deploy the current section through Docker Compose to the established review environment and verify its endpoint and core behavior. Keep that review service running while awaiting feedback. Use a local review deployment when no remote target is specified; explain how the user can access it. If deployment or access is blocked, report the blocker instead of claiming readiness or proceeding to the next section.
+- Present the section name, what works, the actual review URL, checks performed, known limitations, and a short checklist with steps and expected results. Explicitly ask the user to test service functionality and either approve continuation or request changes.
+- Stop at that boundary. Passing tests, silence, elapsed time, or general authorization to build the app is not approval for the next section. Do not start later sections in the background while waiting.
+- Address requested feedback within the same section, retest, redeploy, and ask for review again. Group related small fixes into one review request. Continue only after the user explicitly approves the current result or explicitly changes this review policy.
+- During implementation, record sections, current status, deployed revision/URL, feedback, and explicit approvals in `docs/implementation-progress.md`. Resume from that record after interruptions; do not infer approval. Section acceptance does not waive unfinished product requirements or prove full-course completion.
 
 ## Claude resources
 
